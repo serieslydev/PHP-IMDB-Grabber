@@ -1,11 +1,11 @@
 {
-    "name": "fabianbeiner/php-imdb-grabber",
+    "name": "jmartin/php-imdb-grabber",
     "description": "This class enables you to retrieve data from IMDb.com with PHP.",
     "license": "CC BY-NC-SA 3.0",
     "authors": [
         {
-            "name": "Fabian Beiner",
-            "email": "mail@fabian-beiner.de"
+            "name": "Jordi Martin",
+            "email": "jordimartin@gmail.com"
         }
     ],
     "require": {
