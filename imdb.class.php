@@ -492,7 +492,7 @@ class IMDB {
                 }
                 $arrReturned = $this->matchRegex($arrInfo['contents'], "~<td>(.*?)<\/td>\s+<td>(.*?)<\/td>~",0);
                 if (isset($arrReturned[1]) && isset($arrReturned[2])) {
-
+                    $arrReturn = array();
                     foreach ($arrReturned[1] as $i => $strName) {
 
                       if (strpos($strName,'(')===false){
@@ -806,6 +806,7 @@ class IMDB {
             $strContainer = $this->matchRegex($this->_strSource, IMDB::IMDB_CREATOR, 1);
             $arrReturned  = $this->matchRegex($strContainer, IMDB::IMDB_NAME);
             if (count($arrReturned[2])) {
+                $arrReturn = array();
                 foreach ($arrReturned[2] as $i => $strName) {
                     $arrReturn[] = '<a href="http://www.imdb.com/name/nm' . trim($arrReturned[1][$i]) . '/"' . ($strTarget ? ' target="' . $strTarget . '"' : '') . '>' . trim($strName) . '</a>';
                 }
