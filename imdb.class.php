@@ -87,6 +87,7 @@ class IMDB {
     const IMDB_VOTES        = '~<span itemprop="ratingCount">(.*)</span>~Ui';
     const IMDB_YEAR         = '~<h1 class="header">(?:\s+)<span class="itemprop" itemprop="name">(?:.*)</span>(?:\s+)<span class="nobr">\((.*)\)</span>~Ui';
     const IMDB_WRITER       = '~(?:Writer|Writers):</h4>(.*)</div>~Ui';
+    const IMDB_INFOBAR      = '~<div class="infobar">(.*)<span title~Ui';
 
     // cURL cookie file.
     private $_fCookie   = false;
@@ -1115,6 +1116,25 @@ class IMDB {
             }
         }
         return $this->strNotFound;
+    }
+    
+    /**
+     * Returns media infobar that it'll be used to check if the imdb media is an episode 
+     *
+     * @return string Used to check if it's an episode
+     */
+    public function isEpisode() {
+      if ($this->isReady) {
+        if ($strReturn = $this->matchRegex($this->_strSource, IMDB::IMDB_INFOBAR, 1)) {
+          // some cases there's no info in that place
+          if (is_string($strReturn)) {
+            if (trim($strReturn, " &nbsp;-&nbsp;") == "TV Episode") {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
     }
 
    
