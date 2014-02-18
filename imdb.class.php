@@ -1119,7 +1119,7 @@ class IMDB {
     }
     
     /**
-     * Returns media infobar that it'll be used to check if the imdb media is an episode 
+     * Returns if the imdb media is an episode 
      *
      * @return string Used to check if it's an episode
      */
