@@ -87,6 +87,7 @@ class IMDB {
     const IMDB_VOTES        = '~<span itemprop="ratingCount">(.*)</span>~Ui';
     const IMDB_YEAR         = '~<h1 class="header">(?:\s+)<span class="itemprop" itemprop="name">(?:.*)</span>(?:\s+)<span class="nobr">\((.*)\)</span>~Ui';
     const IMDB_WRITER       = '~(?:Writer|Writers):</h4>(.*)</div>~Ui';
+    const IMDB_INFOBAR      = '~<div class="infobar">(.*)<span title~Ui';
 
     // cURL cookie file.
     private $_fCookie   = false;
@@ -1112,6 +1113,20 @@ class IMDB {
         if ($this->isReady) {
             if ($strReturn = $this->matchRegex($this->_strSource, IMDB::IMDB_YEAR, 1)) {
                 return substr(preg_replace('~[\D]~', '', $strReturn), 0, 4);
+            }
+        }
+        return $this->strNotFound;
+    }
+    
+    /**
+     * Returns media infobar
+     *
+     * @return string Used to check if it's an episode
+     */
+    public function getInfobar() {
+        if ($this->isReady) {
+            if ($strReturn = $this->matchRegex($this->_strSource, IMDB::IMDB_INFOBAR, 1)) {
+              return array(trim($strReturn, " &nbsp;-&nbsp;"));
             }
         }
         return $this->strNotFound;
