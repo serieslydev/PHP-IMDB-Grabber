@@ -1117,20 +1117,6 @@ class IMDB {
         }
         return $this->strNotFound;
     }
-    
-    /**
-     * Returns media infobar
-     *
-     * @return string Used to check if it's an episode
-     */
-    public function getInfobar() {
-        if ($this->isReady) {
-            if ($strReturn = $this->matchRegex($this->_strSource, IMDB::IMDB_INFOBAR, 1)) {
-              return array(trim($strReturn, " &nbsp;-&nbsp;"));
-            }
-        }
-        return $this->strNotFound;
-    }
 
    
 }
