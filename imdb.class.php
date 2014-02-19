@@ -1117,6 +1117,25 @@ class IMDB {
         }
         return $this->strNotFound;
     }
+    
+    /**
+     * Returns if the imdb media is an episode 
+     *
+     * @return string Used to check if it's an episode
+     */
+    public function isEpisode() {
+      if ($this->isReady) {
+        if ($strReturn = $this->matchRegex($this->_strSource, IMDB::IMDB_INFOBAR, 1)) {
+          // some cases there's no info in that place
+          if (is_string($strReturn)) {
+            if (trim($strReturn, " &nbsp;-&nbsp;") == "TV Episode") {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    }
 
    
 }
