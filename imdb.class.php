@@ -88,6 +88,7 @@ class IMDB {
     const IMDB_YEAR         = '~<h1 class="header">(?:\s+)<span class="itemprop" itemprop="name">(?:.*)</span>(?:\s+)<span class="nobr">\((.*)\)</span>~Ui';
     const IMDB_WRITER       = '~(?:Writer|Writers):</h4>(.*)</div>~Ui';
     const IMDB_INFOBAR      = '~<div class="infobar">(.*)<span title~Ui';
+    const IMDB_IS_RELEASED   = '~<div class="star-box giga-star">(.*)</div>~Ui';
 
     // cURL cookie file.
     private $_fCookie   = false;
@@ -1135,6 +1136,26 @@ class IMDB {
         }
       }
       return false;
+    }
+    
+    /**
+     * Release date doesn't contain all the information we need to create a media and 
+     * we need this function that checks if users can vote target media (if can, it's released).
+     *
+     * @return  true If the media is released (users can vote)
+     */
+    public function isReleased() {
+      if ($this->isReady) {
+        if ($strReturn = $this->matchRegex($this->_strSource, IMDB::IMDB_IS_RELEASED, 1)) {
+          // removing the html tags and spaces
+          $strReturn = trim(strip_tags($strReturn));
+          // expected this string if is not released, in other cases will get voting results
+          if (isset($strReturn) && $strReturn == 'Not yet released') {
+            return false;
+          }
+        }
+      }
+      return true;
     }
 
    
