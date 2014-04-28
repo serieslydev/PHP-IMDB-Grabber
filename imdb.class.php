@@ -87,8 +87,8 @@ class IMDB {
     const IMDB_VOTES        = '~<span itemprop="ratingCount">(.*)</span>~Ui';
     const IMDB_YEAR         = '~<h1 class="header">(?:\s+)<span class="itemprop" itemprop="name">(?:.*)</span>(?:\s+)<span class="nobr">\((.*)\)</span>~Ui';
     const IMDB_WRITER       = '~(?:Writer|Writers):</h4>(.*)</div>~Ui';
-    const IMDB_INFOBAR      = '~<div class="infobar">(.*)<span title~Ui';
-    const IMDB_IS_RELEASED   = '~<div class="star-box giga-star">(.*)</div>~Ui';
+    const IMDB_INFOBAR      = '~<div class="infobar">(.*)<time~Ui';
+    const IMDB_IS_RELEASED  = '~<div class="star-box giga-star">(.*)</div>~Ui';
 
     // cURL cookie file.
     private $_fCookie   = false;
