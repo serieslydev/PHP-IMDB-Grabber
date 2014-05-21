@@ -87,7 +87,7 @@ class IMDB {
     const IMDB_VOTES        = '~<span itemprop="ratingCount">(.*)</span>~Ui';
     const IMDB_YEAR         = '~<h1 class="header">(?:\s+)<span class="itemprop" itemprop="name">(?:.*)</span>(?:\s+)<span class="nobr">\((.*)\)</span>~Ui';
     const IMDB_WRITER       = '~(?:Writer|Writers):</h4>(.*)</div>~Ui';
-    const IMDB_INFOBAR      = '~<div class="infobar">(.*)<time~Ui';
+    const IMDB_INFOBAR      = '~<div class="infobar">(.*)<~Ui';
     const IMDB_IS_RELEASED  = '~<div class="star-box giga-star">(.*)</div>~Ui';
 
     // cURL cookie file.
@@ -1120,18 +1120,18 @@ class IMDB {
     }
     
     /**
-     * Returns if the imdb media is an episode 
+     * Returns the type of the imdb media
      *
-     * @return string Used to check if it's an episode
+     * @return string Type of the imdb media
      */
-    public function isEpisode() {
+    public function getType() {
       if ($this->isReady) {
         if ($strReturn = $this->matchRegex($this->_strSource, IMDB::IMDB_INFOBAR, 1)) {
           // some cases there's no info in that place
           if (is_string($strReturn)) {
-            if (trim($strReturn, " &nbsp;-&nbsp;") == "TV Episode") {
-              return true;
-            }
+              // if we use onle trim, it strips useful characters
+              $strReturn = str_replace("&nbsp;-&nbsp;", '', $strReturn);
+              return trim($strReturn, " ");
           }
         }
       }
