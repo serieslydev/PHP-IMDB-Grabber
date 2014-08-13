@@ -78,7 +78,7 @@ class IMDB {
     const IMDB_SOUND_MIX    = '~Sound Mix:</h4>(.*)</div>~Ui';
     const IMDB_SOUND_MIX_A  = '~href="/search/title\?sound_mixes=(?:.*)"[ ]?itemprop=\'url\'>(.*)</a>~Ui';
     const IMDB_TAGLINE      = '~Taglines:</h4>(.*)(?:<span|<\/span>|</div>)~Ui';
-    const IMDB_TITLE        = '~property=\'og:title\' content="(.*) \((?:.*)\)"~Ui';
+    const IMDB_TITLE        = '~\/games\/guess\/tt(\d*)\?ref_=tt_qz"(\s+)?>(.*)<\/a>\.~Ui';
     const IMDB_TITLE_ORIG   = '~<span class="title-extra" itemprop="name">(.*)<i>\(original title\)<\/i>\s+</span>~Ui';
     const IMDB_TRAILER      = '~href="/video/(.*)/(?:\?.*)"(?:.*)itemprop="trailer">~Ui';
     const IMDB_URL          = '~http://(?:.*\.|.*)imdb.com/(?:t|T)itle(?:\?|/)(..\d+)~i';
@@ -1204,7 +1204,7 @@ class IMDB {
             if ($strReturn = $this->matchRegex($this->_strSource, ($bForceLocal ? IMDB::IMDB_TITLE : IMDB::IMDB_TITLE_ORIG), 1)) {
                 return ltrim(rtrim(trim($strReturn), '"'), '"');
             }
-            if ($strReturn = $this->matchRegex($this->_strSource, ($bForceLocal ? IMDB::IMDB_TITLE_ORIG : IMDB::IMDB_TITLE), 1)) {
+            if ($strReturn = $this->matchRegex($this->_strSource, ($bForceLocal ? IMDB::IMDB_TITLE_ORIG : IMDB::IMDB_TITLE), 3)) {
                 return trim($strReturn);
             }
         }
